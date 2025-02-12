@@ -6,6 +6,7 @@ DeepBlack Scanner is a lightweight tool for detecting high-percentage black (K >
 Features:
 
 ✅ Detects CMYK black (K) levels above 95%
+
 ✅ Scans all pages of a PDF efficiently
 ✅ Command-line interface for easy automation
 ✅ Helps prevent rich black inconsistencies in print production
