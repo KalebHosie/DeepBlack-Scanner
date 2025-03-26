@@ -79,12 +79,29 @@ public class HighKBlackDetectionStrategy : IEventListener
                 FoundHighKBlack = true;
         }
     }
-
     private bool CheckBlackPercentage(DeviceCmyk color)
     {
-        float[] cmykValues = color.GetColorValue(); // Get full CMYK array
-        float k = cmykValues[3]; // Extract K (black) component
-        return k > 0.95f; // True if K > 95%
+        float[] cmykValues = color.GetColorValue(); // cmykValues[0] = C, [1] = M, [2] = Y, [3] = K
+        float c = cmykValues[0];
+        float m = cmykValues[1];
+        float y = cmykValues[2];
+        float k = cmykValues[3];
+
+        float total = c + m + y + k;
+
+        // Clause 1: K > 95%
+        if (k > 0.95f)
+        {
+            return true;
+        }
+
+        // Clause 2: K > 85% AND total CMYK >= 290%
+        if (k > 0.85f && total >= 2.90f)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public ICollection<EventType> GetSupportedEvents()
